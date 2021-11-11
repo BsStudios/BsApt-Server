@@ -1,0 +1,184 @@
+﻿<html>
+<head>
+    <style>
+        h2 {
+            text-align: center;
+        }
+
+        .postsnippet {
+            display: inline-block;
+            border-color: lightgray;
+            border: solid;
+            border-width: thin;
+            margin-left: 3em;
+            padding: 1em;
+        }
+
+        .getsnippet {
+            display: inline-block;
+            border-color: lightgray;
+            border: solid;
+            border-width: thin;
+            margin-left: 3em;
+            padding: 1em;
+        }
+    </style>
+    <title>BsRepo</title>
+</head>
+<body>
+    <h2 id="" welcome"">Welcome To BsRepo v1.0.0</h2>
+    <br /><br />
+    <p id="" description"">
+        BsRepo Is a repo server software for the Bs Software Suite RepoManager.
+    </p>
+    <br /><br />
+    <p id="" exapiget"">
+        -----Example API Get Structure-----<br />
+        <br />
+        Get Supported Architectures:<br />
+        <br />
+        <a class="" getsnippet"">
+            GET /aritechture HTTP/1.1<br />
+            Host: *dns_name/ip*<br />
+            Accept: application/json,text/plain,text/html<br />
+        </a>
+        <br />
+        <br />
+        Get Supported OS's:<br />
+        <br />
+        <a class="" getsnippet"">
+            GET /*architecture*/oss HTTP/1.1<br />
+            Host: *dns_name/ip*<br />
+            Accept: application/json,text/plain,text/html<br />
+        </a>
+        <br />
+        <br />
+        Get Release Lists:<br />
+        <br />
+        <a class="" getsnippet"">
+            GET /*architecture*/*os(windows,macintosh,linux)*/releases HTTP/1.1<br />
+            Host: *dns_name/ip*<br />
+            Accept: application/json,text/plain,text/html<br />
+        </a>
+        <br />
+        <br />
+        Get Release Listing:<br />
+        <br />
+        <a class="" getsnippet"">
+            GET /*architecture*/*os(windows,macintosh,linux)*/*release_list* HTTP/1.1<br />
+            Host: *dns_name/ip*<br />
+            Accept: application/json,text/plain,text/html<br />
+        </a>
+        <br />
+        <br />
+        Get Latest Release:<br />
+        <br />
+        <a class="" getsnippet"">
+            GET /*architecture*/*os(windows,macintosh,linux)*/*release_list*/*release_name* HTTP/1.1<br />
+            Host: *dns_name/ip*<br />
+            Accept: application/gzip,application/zip,application/x-7z-compressed,application/x-rar-compressed,application/octet-stream<br />
+        </a>
+        <br />
+        <br />
+        Get Release Versions:<br />
+        <br />
+        <a class="" getsnippet"">
+            GET /*architecture*/*os(windows,macintosh,linux)*/*release_list*/*release_name*/versions HTTP/1.1<br />
+            Host: *dns_name/ip*<br />
+            Accept: application/json,text/plain,text/html<br />
+        </a>
+        <br />
+        <br />
+        Get Specific Release:<br />
+        <br />
+        <a class="" getsnippet"">
+            GET /*architecture*/*os(windows,macintosh,linux)*/*release_list*/*release_name*?v=*version_number* HTTP/1.1<br />
+            Host: *dns_name/ip*<br />
+            Accept: application/gzip,application/zip,application/x-7z-compressed,application/x-rar-compressed,application/octet-stream<br />
+        </a>
+    </p>
+    <br /><br />
+    <p id="" exapipost"">
+        -----Example API Post Structure-----<br />
+        <br />
+        Add Release List:<br />
+        <br />
+        <a class="" postsnippet"">
+            POST /*architecture*/*os(windows,macintosh,linux)*/releases HTTP/1.1<br />
+            Host: *dns_name/ip*<br />
+            Content-Type: application/x-www-form-urlencoded<br />
+            Authorization: Basic *hased_urername_and_password*<br />
+            Content-Length: 11**length_of_content**<br />
+            <br />
+            name=*name*&operation=*(remove_or_add)*<br />
+        </a>
+        <br />
+        <br />
+        Remove Release List:<br />
+        <br />
+        <a class="" postsnippet"">
+            POST /*architecture*/*os(windows,macintosh,linux)*/releases HTTP/1.1<br />
+            Host: *dns_name/ip*<br />
+            Content-Type: application/x-www-form-urlencoded<br />
+            Authorization: Basic *hased_urername_and_password*<br />
+            Content-Length: 39**length_of_content**<br />
+            <br />
+            name=*name*&operation=*(remove_or_add)*<br />
+        </a>
+        <br />
+        <br />
+        Add New Release:<br />
+        <br />
+        <a class="" postsnippet"">
+            POST /*architecture*/*os(windows,macintosh,linux)*/*release_list* HTTP/1.1<br />
+            Host: *dns_name/ip*<br />
+            Content-Type: application/x-www-form-urlencoded<br />
+            Authorization: Basic *hased_urername_and_password*<br />
+            Content-Length: 96**length_of_content**<br />
+            <br />
+            name=*name*&operation=*(remove_or_add)*&initialV=*initial_version*&upload=*(noupload_or_upload)*<br />
+        </a>
+        <br />
+        <br />
+        Add New Release Version:<br />
+        <br />
+        <a class="" postsnippet"">
+            POST /*architecture*/*os(windows,macintosh,linux)*/*release_list* HTTP/1.1<br />
+            Host: *dns_name/ip*<br />
+            Content-Type: application/x-www-form-urlencoded<br />
+            Authorization: Basic *hased_urername_and_password*<br />
+            Content-Length: 63**length_of_content**<br />
+            <br />
+            name=*name*&operation=*(remove_or_add)*&version=*versionnumber*<br />
+        </a>
+        <br />
+        <br />
+        Remove Release Version:<br />
+        <br />
+        <a class="" postsnippet"">
+            POST /*architecture*/*os(windows,macintosh,linux)*/*release_list* HTTP/1.1<br />
+            Host: *dns_name/ip*<br />
+            Content-Type: application/x-www-form-urlencoded<br />
+            Authorization: Basic *hased_urername_and_password*<br />
+            Content-Length: 63**length_of_content**<br />
+            <br />
+            name=*name*&operation=*(remove_or_add)*&version=*versionnumber*<br />
+        </a>
+        <br />
+        <br />
+        Remove Release:<br />
+        <br />
+        <a class="" postsnippet"">
+            POST /*architecture*/*os(windows,macintosh,linux)*/*release_list* HTTP/1.1<br />
+            Host: *dns_name/ip*<br />
+            Content-Type: application/x-www-form-urlencoded<br />
+            Authorization: Basic *hased_urername_and_password*<br />
+            Content-Length: 39**length_of_content**<br />
+            <br />
+            name=*name*&operation=*(remove_or_add)*<br />
+        </a>
+
+    </p>
+
+</body>
+</html>
