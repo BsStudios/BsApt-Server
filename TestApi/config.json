@@ -1,5 +1,1 @@
-{
-  "hosts": [ "https://localhost:8006", "http://localhost:8005" ],
-  "loadrootpage": "true",
-  "litedbpath": ".\bsdb.db"
-}
+{"hosts":["https://localhost:8006","http://localhost:8005"],"loadrootpage":true,"litedbpath":".\\bsdb.db"}
