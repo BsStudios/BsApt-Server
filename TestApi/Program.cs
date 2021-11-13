@@ -31,7 +31,7 @@ namespace TestApi
             if(_config.litedbpath == "" || _config.litedbpath == null || !File.Exists(_config.litedbpath))
             {
                 Console.WriteLine("LiteDB Database Not Found. Making One In Default Directory.");
-                _config.litedbpath = ".\\bsdb.db";
+                _config.litedbpath = Environment.CurrentDirectory + @"\bsdb.db";
                 File.WriteAllText(Environment.CurrentDirectory + @"\config.json", JsonConvert.SerializeObject(_config));
                 isNewDB = true;
             }
