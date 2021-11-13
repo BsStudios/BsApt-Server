@@ -18,17 +18,9 @@ namespace TestApi
     {
         public static config _config;
         public static LiteDatabase _liteDB;
-        public static Aes _cryptoConfig;
 
         public static void Main(string[] args)
         {
-            _cryptoConfig = Aes.Create();
-            byte[] cryptokey =
-            {
-                0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08,
-                0x09, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16
-            };
-            _cryptoConfig.Key = cryptokey;
 
             if (!File.Exists(Environment.CurrentDirectory + @"\config.json"))
             {
@@ -58,20 +50,14 @@ namespace TestApi
                     if (key.Key != ConsoleKey.Backspace) passwordsb.Append(key.KeyChar);
                 }
                 pass = passwordsb.ToString();
-                
-                MemoryStream memoryStream = new MemoryStream();
-                memoryStream.Write(_cryptoConfig.IV, 0, _cryptoConfig.IV.Length);
-                CryptoStream cryptoStream = new CryptoStream(memoryStream, _cryptoConfig.CreateEncryptor(), CryptoStreamMode.Write);
-                StreamWriter encryptWriter = new(cryptoStream);
-                encryptWriter.Write(pass);
 
-
+                string encryptpass = Encryption.Encrypt(pass);
 
                 var users = _liteDB.GetCollection<LiteDBClasses.Users>("users");
                 LiteDBClasses.Users user = new LiteDBClasses.Users
                 {
                     username = "root",
-                    password = Convert.ToBase64String(memoryStream.ToArray())
+                    password = encryptpass
                 };
                 users.Insert(user);
             AccountCreate:;
@@ -106,16 +92,12 @@ namespace TestApi
                         }
                         pass = passwordsb.ToString();
 
-                        memoryStream = new MemoryStream();
-                        memoryStream.Write(_cryptoConfig.IV, 0, _cryptoConfig.IV.Length);
-                        cryptoStream = new CryptoStream(memoryStream, _cryptoConfig.CreateEncryptor(), CryptoStreamMode.Write);
-                        encryptWriter = new(cryptoStream);
-                        encryptWriter.Write(pass);
+                        string encryptpass2 = Encryption.Encrypt(pass);
 
                         user = new LiteDBClasses.Users
                         {
                             username = usname,
-                            password = Convert.ToBase64String(memoryStream.ToArray())
+                            password = encryptpass
                         };
                         users.Insert(user);
                         goto AccountCreate;
@@ -127,9 +109,6 @@ namespace TestApi
                     pass = null;
                     passwordsb = null;
                     user = null;
-                    encryptWriter = null;
-                    cryptoStream = null;
-                    memoryStream = null;
                 }
             }
             var users1 = _liteDB.GetCollection<LiteDBClasses.Users>("users");
